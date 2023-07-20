@@ -1,0 +1,21 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+spring:
+  application:
+    name: gateway
+  cloud:
+    config:
+      import-check:
+        enabled: false
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+          - id: client-update-route
+            uri: lb://client-update
+            predicates:
+              - Path=/api/update/**

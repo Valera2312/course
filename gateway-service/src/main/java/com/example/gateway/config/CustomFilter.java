@@ -1,16 +1,14 @@
-package com.example.gateway;
+package com.example.gateway.config;
 
-import org.springframework.boot.web.servlet.filter.OrderedFilter;
+import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
-import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
-
 @Component
-public class CustomFilter implements GlobalFilter, OrderedFilter {
+public class CustomFilter implements GatewayFilter, Ordered {
 
     private static final String HEADER_NAME = "spring-cloud-course";
 
@@ -25,7 +23,9 @@ public class CustomFilter implements GlobalFilter, OrderedFilter {
 
     @Override
     public int getOrder() {
-        // Устанавливаем порядок выполнения фильтра
+        // Set the order of filter execution
         return Ordered.HIGHEST_PRECEDENCE;
     }
 }
+
+
